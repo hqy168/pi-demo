@@ -1,0 +1,51 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "compounds": [
+        {
+            "name": "Debug",
+            "configurations": ["Launch Backend", "Launch Frontend"]
+        }
+    ],
+    "configurations": [
+        {
+            "name": "Launch Backend",
+            "request": "launch",
+            "runtimeArgs": [
+                "start",
+                "debug"
+            ],
+            "runtimeExecutable": "yarn",
+            "cwd": "${workspaceFolder}/backend",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "Launch Frontend",
+            "request": "launch",
+            "runtimeArgs": [
+                "startNode17",
+                "debug"
+            ],
+            "runtimeExecutable": "yarn",
+            "cwd": "${workspaceFolder}/frontend",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${file}"
+        }
+    ]
+}

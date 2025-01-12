@@ -56,6 +56,7 @@ const config = {headers: {'Content-Type': 'application/json', 'Access-Control-Al
 export default function Shop() {
   const [user, setUser] = useState<User | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [authResult, setAuthResult] = useState<AuthResult | null>(null);
 
   const signIn = async () => {
     const scopes = ['username', 'payments'];
@@ -66,11 +67,13 @@ export default function Shop() {
 
   const signOut = () => {
     setUser(null);
+    setAuthResult(null);
     signOutUser();
   }
 
   const signInUser = (authResult: AuthResult) => {
     axiosClient.post('/user/signin', {authResult});
+    setAuthResult(authResult);
     return setShowModal(false);
   }
 
@@ -104,7 +107,7 @@ export default function Shop() {
 
   const onReadyForServerApproval = (paymentId: string) => {
     console.log("onReadyForServerApproval", paymentId);
-    axiosClient.post('/payments/approve', {paymentId}, config);
+    axiosClient.post('/payments/approve', {paymentId, authResult}, config);
   }
 
   const onReadyForServerCompletion = (paymentId: string, txid: string) => {
